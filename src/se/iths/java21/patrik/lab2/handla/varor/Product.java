@@ -17,29 +17,32 @@ public class Product {
         this.origin = origin;
     }
 
-    public String getName() {
+
+    public String name() {
         return name;
     }
 
-    public float getPrice() {
+    public float price() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void price(float price) {
         this.price = price;
     }
 
-    public float getMass() {
+    public float mass() {
         return mass;
     }
 
-    public String getManufacturer() {
+    public String manufacturer() {
         return manufacturer;
     }
 
-    public String getOrigin() {
+    public String origin() {
         return origin;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

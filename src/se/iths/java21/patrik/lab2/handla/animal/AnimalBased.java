@@ -17,17 +17,20 @@ public class AnimalBased extends Product {
         this.fatPercent = fatPercent;
     }
 
-    public AnimalBasedType getType() {
+
+    public AnimalBasedType type() {
         return type;
     }
 
-    public TasteAndSpice getTaste() {
+    public TasteAndSpice taste() {
         return taste;
     }
 
-    public float getFatPercent() {
+    public float fatPercent() {
         return fatPercent;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

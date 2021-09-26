@@ -17,21 +17,24 @@ public class PlantBased extends Product {
         this.taste = taste;
     }
 
-    public PlantType getType() {
+
+    public PlantType type() {
         return type;
     }
 
-    public QualityClass getQuality() {
+    public QualityClass quality() {
         return quality;
     }
 
-    public void setQuality(QualityClass quality) {
+    public void quality(QualityClass quality) {
         this.quality = quality;
     }
 
-    public TasteAndSpice getTaste() {
+    public TasteAndSpice taste() {
         return taste;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
