@@ -61,3 +61,50 @@ public class TradeMenu implements MenuTemplate<Integer> {
     public void shutDown() {
     }
 }
+
+// Buy item, add to cart, remove from stock
+
+//        System.out.println("Available products");
+//                productList.printList();
+//                System.out.println("");
+//
+//                System.out.println("Set Product and Amount 2 DONE");
+//                cart.setProductAndAmount(1, 2, productList);
+//                System.out.println("Print Cart");
+//                cart.printCart(cart);
+//                System.out.println("");
+//
+//                System.out.println("Available products");
+//                productList.printList();
+//                System.out.println("");
+//
+//                System.out.println("Add 3 to Product DONE");
+//                cart.addAmountToProduct(1, 3, productList, cart);
+//                System.out.println("Print Cart");
+//                cart.printCart(cart);
+//                System.out.println("");
+//
+//                System.out.println("Available products");
+//                productList.printList();
+//                System.out.println("");
+//
+//                System.out.println("Remove 4 of Product DONE");
+//                cart.removeAmountFromProduct(1, 4, productList, cart);
+//                System.out.println("Print Cart");
+//                cart.printCart(cart);
+//                System.out.println("");
+//
+//                System.out.println("Available products");
+//                productList.printList();
+//                System.out.println("");
+//
+//                System.out.println("Remove 2 of Product = 0 DONE");
+//                cart.removeAmountFromProduct(1, 2, productList, cart);
+//                System.out.println("Print Cart");
+//                cart.printCart(cart);
+//                System.out.println(cart.getTotalPrice());
+//                System.out.println("");
+//
+//                System.out.println("Available products");
+//                productList.printList();
+//                System.out.println("");

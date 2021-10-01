@@ -5,14 +5,14 @@ public class Product {
     private float price;
     private final Category category;
     private final int ean;
-    private int stock;
+    private int quantity;
 
     public Product(String name, float price, Category category, int ean, int stock) {
         this.name = name;
         this.price = price;
         this.category = category;
         this.ean = ean;
-        this.stock = stock;
+        this.quantity = stock;
     }
 
     public Product(Product product, int amount) {
@@ -20,7 +20,7 @@ public class Product {
         this.price = product.price;
         this.category = product.category;
         this.ean = product.ean;
-        this.stock = amount;
+        this.quantity = amount;
     }
 
     public String getName() {
@@ -43,19 +43,19 @@ public class Product {
         return ean;
     }
 
-    public int getStock() {
-        return stock;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setStock(int amount) {
-        if (this.stock + amount <= 0)
-            this.stock = 0;
+    public void setQuantity(int amount) {
+        if (this.quantity + amount <= 0)
+            this.quantity = 0;
         else
-            this.stock = this.stock + amount;
+            this.quantity = this.quantity + amount;
     }
 
     @Override
     public String toString() {
-        return name + ": Price: " + price + "kr, Category: " + category + ", EAN Code:" + ean + ", Amount: " + stock;
+        return name + ": Price: " + price + "kr, Category: " + category + ", EAN Code:" + ean + ", Quantity: " + quantity;
     }
 }

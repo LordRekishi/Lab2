@@ -31,7 +31,7 @@ public class ShoppingCart {
             System.out.println("Amount too low...");
         else {
             this.cart.put(addedProduct, amount);
-            productList.getProduct(ean).setStock(-amount);
+            productList.getProduct(ean).setQuantity(-amount);
             totalPrice += (amount * addedProduct.getPrice());
         }
     }
@@ -42,8 +42,8 @@ public class ShoppingCart {
             Product cartProduct = cart.getProduct(ean);
 
             this.cart.put(cartProduct, currentStock + amount);
-            cartProduct.setStock(amount);
-            productList.getProduct(ean).setStock(-amount);
+            cartProduct.setQuantity(amount);
+            productList.getProduct(ean).setQuantity(-amount);
             totalPrice += (amount * cartProduct.getPrice());
         } catch (NullPointerException e) {
             System.out.println("Wrong EAN code, try again...");
@@ -57,12 +57,12 @@ public class ShoppingCart {
 
             if (currentStock - amount <= 0) {
                 this.cart.remove(cartProduct);
-                productList.getProduct(ean).setStock(currentStock);
+                productList.getProduct(ean).setQuantity(currentStock);
                 totalPrice -= (currentStock * cartProduct.getPrice());
             } else {
                 this.cart.put(cartProduct, currentStock - amount);
-                productList.getProduct(ean).setStock(amount);
-                cartProduct.setStock(-amount);
+                productList.getProduct(ean).setQuantity(amount);
+                cartProduct.setQuantity(-amount);
                 totalPrice -= (amount * cartProduct.getPrice());
             }
         } catch (NullPointerException e) {

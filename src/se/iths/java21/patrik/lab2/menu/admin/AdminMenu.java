@@ -18,7 +18,7 @@ public class AdminMenu implements MenuTemplate<Integer> {
         this.categories = categories;
         this.productList = productList;
 
-        ChangeProducts changeProducts = new ChangeProducts(productList);
+        ChangeProducts changeProducts = new ChangeProducts(categories, productList);
         ChangeCategories addCategories = new ChangeCategories(categories);
 
         commands[1] = changeProducts::run;

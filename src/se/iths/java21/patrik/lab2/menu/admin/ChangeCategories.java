@@ -15,8 +15,8 @@ public class ChangeCategories implements MenuTemplate<Integer> {
     public ChangeCategories(List<Category> categories) {
         this.categories = categories;
 
-        commands[1] = () -> System.out.println("Command 1");
-        commands[2] = () -> System.out.println("Command 2");
+        commands[1] = SearchCategory::run;
+        commands[2] = AddCategory::run;
         commands[0] = this::shutDown;
     }
 
@@ -34,9 +34,9 @@ public class ChangeCategories implements MenuTemplate<Integer> {
     @Override
     public void printMenuOptions() {
         System.out.println("""
-                           +----------------+ +--------------+ +---------+
-                KATEGORIER | 1. Sök / Ändra | | 2. Lägg till | | 0. Exit |
-                           +----------------+ +--------------+ +---------+
+                           +------------------+ +--------------+ +---------+
+                KATEGORIER | 1. Sök / Ta Bort | | 2. Lägg till | | 0. Exit |
+                           +------------------+ +--------------+ +---------+
                                 
                 Gör ditt menyval genom att skriva SIFFRAN och sedan trycka ENTER!
                 ↓ Skriv här ↓""");
@@ -58,5 +58,18 @@ public class ChangeCategories implements MenuTemplate<Integer> {
 
     @Override
     public void shutDown() {
+    }
+
+
+    static class SearchCategory {
+        public static void run() {
+
+        }
+    }
+
+    static class AddCategory {
+        public static void run() {
+
+        }
     }
 }
