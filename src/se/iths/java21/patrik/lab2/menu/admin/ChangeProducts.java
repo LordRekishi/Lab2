@@ -3,19 +3,20 @@ package se.iths.java21.patrik.lab2.menu.admin;
 import se.iths.java21.patrik.lab2.menu.tools.Command;
 import se.iths.java21.patrik.lab2.menu.tools.MenuTemplate;
 import se.iths.java21.patrik.lab2.menu.trading.Category;
+import se.iths.java21.patrik.lab2.menu.trading.CategoryList;
 import se.iths.java21.patrik.lab2.menu.trading.Product;
 import se.iths.java21.patrik.lab2.menu.trading.ProductList;
 
-import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class ChangeProducts implements MenuTemplate<Integer> {
     private static final Scanner scanner = new Scanner(System.in);
     private final Command[] commands = new Command[3];
-    private static List<Category> categories;
+    private static CategoryList categories;
     private static ProductList productList;
 
-    public ChangeProducts(List<Category> categories, ProductList productList) {
+    public ChangeProducts(CategoryList categories, ProductList productList) {
         ChangeProducts.categories = categories;
         ChangeProducts.productList = productList;
 
@@ -68,51 +69,53 @@ public class ChangeProducts implements MenuTemplate<Integer> {
 
     static class SearchProduct {
         public static void run() {
-            int input;
+            Product product;
 
-            while (true) {
-                System.out.println("""
-                        +------------------+ +---------+
-                        | 1. Sök / Ta Bort | | 0. Exit |
-                        +------------------+ +---------+
+            scanner.nextLine();
 
-                        Gör ditt menyval genom att skriva SIFFRAN och sedan trycka ENTER!
-                        ↓ Skriv här ↓""");
+            System.out.println("\nSkriv på NAMN eller EAN kod, tryck sedan ENTER");
+            Product foundProduct = searchProduct();
 
-                input = scanner.nextInt();
+            System.out.println("\nFound Product: " + foundProduct);
 
-                if (input == 0)
-                    break;
-
-                System.out.println("\nSkriv på NAMN eller EAN kod, tryck sedan ENTER");
-                var searchInput = scanner.nextLine();
-
+            System.out.println("\nTa bort vald produkt? (Y/N)");
+            if (scanner.nextLine().equalsIgnoreCase("y")) {
+                productList.removeProduct(foundProduct);
             }
+        }
 
+        private static Product searchProduct() {
+            String searchInput = scanner.nextLine();
+            Product product;
 
+            if (isNumeric(searchInput)) {
+                return product = productList.getProduct(Integer.parseInt(searchInput));
+            } else {
+                return product = productList.getProduct(searchInput);
+            }
+        }
+
+        private static boolean isNumeric(String searchInput) {
+            if (searchInput == null)
+                return false;
+            try {
+                Integer.parseInt(searchInput);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+            return true;
         }
     }
 
     static class AddProduct {
         public static void run() {
-            int input;
+            String input;
 
-            while (true) {
+            do {
                 System.out.println("""
-                    +----------------------+ +---------+
-                    | 1. Lägg till Produkt | | 0. Exit |
-                    +----------------------+ +---------+
-
-                    Gör ditt menyval genom att skriva SIFFRAN och sedan trycka ENTER!
-                    ↓ Skriv här ↓""");
-
-                input = scanner.nextInt();
-
-                if (input == 0)
-                    break;
-
-                System.out.println("\nTillgängliga varor:");
-                productList.printList();
+                                                
+                        Lägg till Produkt
+                        ↓ Skriv här ↓""");
 
                 System.out.println("\nVarans NAMN:");
                 scanner.nextLine();
@@ -128,10 +131,19 @@ public class ChangeProducts implements MenuTemplate<Integer> {
 
                 productList.addProductToList(new Product(name, price, category, ean, stock));
                 System.out.println("""
-                        
+                                                
                         Varan är tillagd...
+                                                
+                        Lägga till en till? (Y/N)
                         """);
-            }
+
+                input = scanner.nextLine();
+            } while (!input.equalsIgnoreCase("n"));
+
+            System.out.println("\nTillgängliga varor:");
+            productList.printList();
+
+            System.out.println("\nÅtergår till föregående meny\n");
         }
     }
 }

@@ -3,7 +3,7 @@ package se.iths.java21.patrik.lab2.menu.trading;
 import java.util.Objects;
 
 public class Category {
-    String name;
+    private String name;
 
     public Category(String name) {
         this.name = name;

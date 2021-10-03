@@ -3,8 +3,12 @@ package se.iths.java21.patrik.lab2.menu.trading;
 import java.util.*;
 
 public class ShoppingCart {
-    private Map<Product, Integer> cart = new HashMap<>();
+    private Map<Product, Integer> cart;
     private double totalPrice;
+
+    public ShoppingCart() {
+        cart  = new HashMap<>();
+    }
 
     public double getTotalPrice() {
         return totalPrice;
@@ -75,8 +79,8 @@ public class ShoppingCart {
         if (this.cart.isEmpty())
             System.out.println("Cart is Empty...");
         else {
-            this.cart.keySet().stream()
-                    .forEach(System.out::println);
+            this.cart.keySet()
+                    .forEach(product -> System.out.println(product.getName() + ": EAN kod: " + product.getEan() + ". Pris: " + product.getPrice() + "kr/st. I korgen: " + product.getQuantity() + "st"));
             System.out.println("Total price:" + cart.getTotalPrice());
         }
     }

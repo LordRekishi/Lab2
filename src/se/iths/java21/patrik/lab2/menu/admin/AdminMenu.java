@@ -3,6 +3,7 @@ package se.iths.java21.patrik.lab2.menu.admin;
 import se.iths.java21.patrik.lab2.menu.tools.Command;
 import se.iths.java21.patrik.lab2.menu.tools.MenuTemplate;
 import se.iths.java21.patrik.lab2.menu.trading.Category;
+import se.iths.java21.patrik.lab2.menu.trading.CategoryList;
 import se.iths.java21.patrik.lab2.menu.trading.ProductList;
 
 import java.util.List;
@@ -11,10 +12,10 @@ import java.util.Scanner;
 public class AdminMenu implements MenuTemplate<Integer> {
     private static final Scanner scanner = new Scanner(System.in);
     private final Command[] commands = new Command[3];
-    private List<Category> categories;
+    private CategoryList categories;
     private ProductList productList;
 
-    public AdminMenu(List<Category> categories, ProductList productList) {
+    public AdminMenu(CategoryList categories, ProductList productList) {
         this.categories = categories;
         this.productList = productList;
 

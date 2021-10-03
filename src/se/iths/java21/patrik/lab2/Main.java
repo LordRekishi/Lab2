@@ -4,52 +4,27 @@ import se.iths.java21.patrik.lab2.menu.admin.AdminMenu;
 import se.iths.java21.patrik.lab2.menu.trading.*;
 import se.iths.java21.patrik.lab2.menu.MainMenu;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 public class Main {
-    private static Scanner scanner = new Scanner(System.in);
-
     public static void main(String[] args) {
-        List<Category> categories = new ArrayList<>();
+        CategoryList categories = new CategoryList();
         ProductList productList = new ProductList();
         ShoppingCart cart = new ShoppingCart();
 
-        Category meat = new Category("Meat");
-        Category dairy = new Category("Dairy");
+        categories.addCategory(new Category("Meat"));
+        categories.addCategory(new Category("Dairy"));
+        categories.addCategory(new Category("Vegetable"));
 
-        categories.add(meat);
-        categories.add(dairy);
-
-        productList.addProductToList(new Product("Bacon", 10, meat, 1 , 10));
-        productList.addProductToList(new Product("Milk", 20, dairy, 2, 5 ));
-        productList.addProductToList(new Product("Chicken clubs", 5, meat, 3, 6 ));
+        productList.addProductToList(new Product("Bacon", 1, categories.getCategory("Meat"), 1, 10));
+        productList.addProductToList(new Product("Milk", 20, categories.getCategory("Dairy"), 2, 5));
+        productList.addProductToList(new Product("Chicken clubs", 5, categories.getCategory("Meat"), 3, 6));
+        productList.addProductToList(new Product("Tomato", 3, categories.getCategory("Vegetable"), 4, 60));
+        productList.addProductToList(new Product("Chicken soup", 10, categories.getCategory("Meat"), 5, 80));
 
         AdminMenu admin = new AdminMenu(categories, productList);
         TradeMenu trade = new TradeMenu(productList, cart);
         MainMenu menu = new MainMenu(trade, admin);
 
         menu.run();
-
-
-
-
-
-
-
-
-
-        // Search for product by name - OK
-//        System.out.println(productList.getProduct("Mil"));
-//        System.out.println(productList.getProduct("Chicken"));
-//        System.out.println(productList.getProduct("con"));
-
-        // Search for product by EAN - OK
-//        System.out.println(productList.getProduct(2));
-//        System.out.println(productList.getProduct(1));
-//        System.out.println(productList.getProduct(4));
-
     }
 }
 

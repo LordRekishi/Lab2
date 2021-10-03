@@ -1,5 +1,7 @@
 package se.iths.java21.patrik.lab2.menu.trading;
 
+import java.util.Objects;
+
 public class Product {
     private final String name;
     private float price;
@@ -55,7 +57,23 @@ public class Product {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Float.compare(product.price, price) == 0 && ean == product.ean && quantity == product.quantity && Objects.equals(name, product.name) && Objects.equals(category, product.category);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, price, category, ean, quantity);
+    }
+
+    @Override
     public String toString() {
-        return name + ": Price: " + price + "kr, Category: " + category + ", EAN Code:" + ean + ", Quantity: " + quantity;
+        if (this.getName().equals("NO PRODUCT FOUND"))
+            return "No such product found!";
+        else
+            return name + ": Price: " + price + "kr, Category: " + category + ", EAN Code:" + ean + ", Quantity: " + quantity;
     }
 }

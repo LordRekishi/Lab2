@@ -3,6 +3,7 @@ package se.iths.java21.patrik.lab2.menu.admin;
 import se.iths.java21.patrik.lab2.menu.tools.Command;
 import se.iths.java21.patrik.lab2.menu.tools.MenuTemplate;
 import se.iths.java21.patrik.lab2.menu.trading.Category;
+import se.iths.java21.patrik.lab2.menu.trading.CategoryList;
 
 import java.util.List;
 import java.util.Scanner;
@@ -10,9 +11,9 @@ import java.util.Scanner;
 public class ChangeCategories implements MenuTemplate<Integer> {
     private static final Scanner scanner = new Scanner(System.in);
     private final Command[] commands = new Command[3];
-    private List<Category> categories;
+    private CategoryList categories;
 
-    public ChangeCategories(List<Category> categories) {
+    public ChangeCategories(CategoryList categories) {
         this.categories = categories;
 
         commands[1] = SearchCategory::run;
