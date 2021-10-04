@@ -2,13 +2,12 @@ package se.iths.java21.patrik.lab2.menu.admin;
 
 import se.iths.java21.patrik.lab2.menu.tools.Command;
 import se.iths.java21.patrik.lab2.menu.tools.MenuTemplate;
-import se.iths.java21.patrik.lab2.menu.trading.Category;
-import se.iths.java21.patrik.lab2.menu.trading.CategoryList;
+import se.iths.java21.patrik.lab2.menu.tools.Category;
+import se.iths.java21.patrik.lab2.menu.tools.CategoryList;
 import se.iths.java21.patrik.lab2.menu.trading.Product;
-import se.iths.java21.patrik.lab2.menu.trading.ProductList;
+import se.iths.java21.patrik.lab2.menu.tools.ProductList;
 
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class ChangeProducts implements MenuTemplate<Integer> {
     private static final Scanner scanner = new Scanner(System.in);

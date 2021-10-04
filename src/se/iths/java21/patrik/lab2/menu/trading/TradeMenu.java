@@ -2,6 +2,8 @@ package se.iths.java21.patrik.lab2.menu.trading;
 
 import se.iths.java21.patrik.lab2.menu.tools.Command;
 import se.iths.java21.patrik.lab2.menu.tools.MenuTemplate;
+import se.iths.java21.patrik.lab2.menu.tools.ProductList;
+import se.iths.java21.patrik.lab2.menu.tools.ShoppingCart;
 
 import java.util.Scanner;
 

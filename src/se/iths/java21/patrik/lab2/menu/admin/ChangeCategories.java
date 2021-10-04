@@ -2,10 +2,8 @@ package se.iths.java21.patrik.lab2.menu.admin;
 
 import se.iths.java21.patrik.lab2.menu.tools.Command;
 import se.iths.java21.patrik.lab2.menu.tools.MenuTemplate;
-import se.iths.java21.patrik.lab2.menu.trading.Category;
-import se.iths.java21.patrik.lab2.menu.trading.CategoryList;
+import se.iths.java21.patrik.lab2.menu.tools.CategoryList;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class ChangeCategories implements MenuTemplate<Integer> {

@@ -1,6 +1,10 @@
 package se.iths.java21.patrik.lab2;
 
 import se.iths.java21.patrik.lab2.menu.admin.AdminMenu;
+import se.iths.java21.patrik.lab2.menu.tools.Category;
+import se.iths.java21.patrik.lab2.menu.tools.CategoryList;
+import se.iths.java21.patrik.lab2.menu.tools.ProductList;
+import se.iths.java21.patrik.lab2.menu.tools.ShoppingCart;
 import se.iths.java21.patrik.lab2.menu.trading.*;
 import se.iths.java21.patrik.lab2.menu.MainMenu;
 

@@ -1,5 +1,7 @@
 package se.iths.java21.patrik.lab2.menu.trading;
 
+import se.iths.java21.patrik.lab2.menu.tools.Category;
+
 import java.util.Objects;
 
 public class Product {

@@ -1,4 +1,6 @@
-package se.iths.java21.patrik.lab2.menu.trading;
+package se.iths.java21.patrik.lab2.menu.tools;
+
+import se.iths.java21.patrik.lab2.menu.trading.Product;
 
 import java.util.*;
 
