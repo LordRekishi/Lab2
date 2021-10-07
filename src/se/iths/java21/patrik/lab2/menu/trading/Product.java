@@ -1,7 +1,5 @@
 package se.iths.java21.patrik.lab2.menu.trading;
 
-import se.iths.java21.patrik.lab2.menu.tools.Category;
-
 import java.util.Objects;
 
 public class Product {
@@ -76,6 +74,6 @@ public class Product {
         if (this.getName().equals("NO PRODUCT FOUND"))
             return "No such product found!";
         else
-            return name + ": Price: " + price + "kr, Category: " + category + ", EAN Code:" + ean + ", Quantity: " + quantity;
+            return name + ": pris: " + price + " kr, kategori: " + category + ", EAN kod:" + ean + ", antal: " + quantity + " st.";
     }
 }

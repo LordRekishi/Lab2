@@ -1,4 +1,4 @@
-package se.iths.java21.patrik.lab2.menu.tools;
+package se.iths.java21.patrik.lab2.menu.trading;
 
 import java.util.Objects;
 
@@ -6,7 +6,7 @@ public class Category {
     private String name;
 
     public Category(String name) {
-        this.name = name;
+        this.name = name.toUpperCase();
     }
 
     public String getName() {

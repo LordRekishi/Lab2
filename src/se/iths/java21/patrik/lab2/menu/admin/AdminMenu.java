@@ -1,22 +1,13 @@
 package se.iths.java21.patrik.lab2.menu.admin;
 
-import se.iths.java21.patrik.lab2.menu.tools.Command;
-import se.iths.java21.patrik.lab2.menu.tools.MenuTemplate;
-import se.iths.java21.patrik.lab2.menu.tools.CategoryList;
-import se.iths.java21.patrik.lab2.menu.tools.ProductList;
-
-import java.util.Scanner;
+import se.iths.java21.patrik.lab2.menu.tools.*;
+import se.iths.java21.patrik.lab2.menu.trading.CategoryList;
+import se.iths.java21.patrik.lab2.menu.trading.ProductList;
 
 public class AdminMenu implements MenuTemplate<Integer> {
-    private static final Scanner scanner = new Scanner(System.in);
     private final Command[] commands = new Command[3];
-    private CategoryList categories;
-    private ProductList productList;
 
     public AdminMenu(CategoryList categories, ProductList productList) {
-        this.categories = categories;
-        this.productList = productList;
-
         ChangeProducts changeProducts = new ChangeProducts(categories, productList);
         ChangeCategories addCategories = new ChangeCategories(categories);
 
@@ -27,11 +18,11 @@ public class AdminMenu implements MenuTemplate<Integer> {
 
     @Override
     public void run() {
-        int choice = 0;
+        int choice;
 
         do {
             printMenuOptions();
-            choice = readChoice(scanner);
+            choice = readChoice();
             executeChoice(choice);
         } while (choice != 0);
     }
@@ -39,6 +30,7 @@ public class AdminMenu implements MenuTemplate<Integer> {
     @Override
     public void printMenuOptions() {
         System.out.println("""
+                      
                       +--------------------+ +---------------------+ +---------+
                 ADMIN | 1. Ändra Produkter | | 2. Ändra Kategorier | | 0. Exit |
                       +--------------------+ +---------------------+ +---------+
@@ -48,8 +40,8 @@ public class AdminMenu implements MenuTemplate<Integer> {
     }
 
     @Override
-    public Integer readChoice(Scanner scanner) {
-        return scanner.nextInt();
+    public Integer readChoice() {
+        return InputHandler.getIntegerInput();
     }
 
     @Override

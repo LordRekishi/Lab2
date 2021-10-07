@@ -1,17 +1,13 @@
 package se.iths.java21.patrik.lab2.menu.admin;
 
-import se.iths.java21.patrik.lab2.menu.tools.Command;
-import se.iths.java21.patrik.lab2.menu.tools.MenuTemplate;
-import se.iths.java21.patrik.lab2.menu.tools.Category;
-import se.iths.java21.patrik.lab2.menu.tools.CategoryList;
+import se.iths.java21.patrik.lab2.menu.tools.*;
+import se.iths.java21.patrik.lab2.menu.trading.Category;
+import se.iths.java21.patrik.lab2.menu.trading.CategoryList;
 import se.iths.java21.patrik.lab2.menu.trading.Product;
-import se.iths.java21.patrik.lab2.menu.tools.ProductList;
-
-import java.util.Scanner;
+import se.iths.java21.patrik.lab2.menu.trading.ProductList;
 
 public class ChangeProducts implements MenuTemplate<Integer> {
-    private static final Scanner scanner = new Scanner(System.in);
-    private final Command[] commands = new Command[3];
+    private final Command[] commands = new Command[4];
     private static CategoryList categories;
     private static ProductList productList;
 
@@ -21,17 +17,23 @@ public class ChangeProducts implements MenuTemplate<Integer> {
 
         commands[1] = SearchProduct::run;
         commands[2] = AddProduct::run;
+        commands[3] = this::printList;
         commands[0] = this::shutDown;
 
     }
 
+    private void printList() {
+        System.out.println("\nPRODUKTER:");
+        productList.printList();
+    }
+
     @Override
     public void run() {
-        int choice = 0;
+        int choice;
 
         do {
             printMenuOptions();
-            choice = readChoice(scanner);
+            choice = readChoice();
             executeChoice(choice);
         } while (choice != 0);
 
@@ -40,17 +42,18 @@ public class ChangeProducts implements MenuTemplate<Integer> {
     @Override
     public void printMenuOptions() {
         System.out.println("""
-                          +------------------+ +--------------+ +---------+
-                PRODUKTER | 1. Sök / Ta Bort | | 2. Lägg till | | 0. Exit |
-                          +------------------+ +--------------+ +---------+
+                          
+                          +------------------+ +--------------+ +-----------------+  +---------+
+                PRODUKTER | 1. Sök / Ändra   | | 2. Lägg till | | 3. Se Produkter |  | 0. Exit |
+                          +------------------+ +--------------+ +-----------------+  +---------+
                                 
                 Gör ditt menyval genom att skriva SIFFRAN och sedan trycka ENTER!
                 ↓ Skriv här ↓""");
     }
 
     @Override
-    public Integer readChoice(Scanner scanner) {
-        return scanner.nextInt();
+    public Integer readChoice() {
+        return InputHandler.getIntegerInput();
     }
 
     @Override
@@ -68,47 +71,68 @@ public class ChangeProducts implements MenuTemplate<Integer> {
 
     static class SearchProduct {
         public static void run() {
-            Product product;
 
-            scanner.nextLine();
+            System.out.println("\nSök på NAMN eller EAN kod");
+            Product foundProduct = productList.searchProduct();
 
-            System.out.println("\nSkriv på NAMN eller EAN kod, tryck sedan ENTER");
-            Product foundProduct = searchProduct();
-
-            System.out.println("\nFound Product: " + foundProduct);
+            System.out.println("\nVald Produkt: " + foundProduct);
 
             System.out.println("\nTa bort vald produkt? (Y/N)");
-            if (scanner.nextLine().equalsIgnoreCase("y")) {
+            if (InputHandler.getStringInput().equalsIgnoreCase("y")) {
                 productList.removeProduct(foundProduct);
-            }
-        }
-
-        private static Product searchProduct() {
-            String searchInput = scanner.nextLine();
-            Product product;
-
-            if (isNumeric(searchInput)) {
-                return product = productList.getProduct(Integer.parseInt(searchInput));
             } else {
-                return product = productList.getProduct(searchInput);
+                System.out.println("\nÄndra på produkten? (Y/N)");
+                if (InputHandler.getStringInput().equalsIgnoreCase("y")) {
+                    System.out.println("""
+                                                        
+                            VAD VILL DU ÄNDRA?
+                            ----------------------+
+                            1. PRIS
+                            2. SALDO
+                            0. Exit
+                            
+                            Gör ditt menyval genom att skriva SIFFRAN och sedan trycka ENTER!                     
+                            ↓ Skriv här ↓""");
+
+                    int choice = InputHandler.getIntegerInput();
+                    changeMenuChoiceExecution(foundProduct, choice);
+                }
             }
         }
 
-        private static boolean isNumeric(String searchInput) {
-            if (searchInput == null)
-                return false;
-            try {
-                Integer.parseInt(searchInput);
-            } catch (NumberFormatException e) {
-                return false;
+        private static void changeMenuChoiceExecution(Product foundProduct, int choice) {
+            switch (choice) {
+                case 1 -> {
+                    System.out.println("\nDet nuvarande priset är: " + foundProduct.getPrice() + "kr." +
+                            "\nSkriv det nya priset: " +
+                            "\n↓ Skriv här ↓");
+                    foundProduct.setPrice(InputHandler.getFloatInput());
+                    System.out.println("""
+                                                            
+                            Den uppdaterade produkten:""");
+                    System.out.println(foundProduct);
+                    System.out.println("\nÅtergår till föregående meny...");
+                }
+                case 2 -> {
+                    System.out.println("Det nuvarande lagersaldot är: " + foundProduct.getQuantity() +
+                            "st." +
+                            "\nSkriv det nya saldot: " +
+                            "\n↓ Skriv här ↓");
+                    foundProduct.setQuantity(InputHandler.getIntegerInput());
+                    System.out.println("""
+                                                            
+                            Den uppdaterade produkten:""");
+                    System.out.println(foundProduct);
+                    System.out.println("\nÅtergår till föregående meny...");
+                }
             }
-            return true;
         }
+
     }
 
     static class AddProduct {
         public static void run() {
-            String input;
+            String choice;
 
             do {
                 System.out.println("""
@@ -117,32 +141,45 @@ public class ChangeProducts implements MenuTemplate<Integer> {
                         ↓ Skriv här ↓""");
 
                 System.out.println("\nVarans NAMN:");
-                scanner.nextLine();
-                String name = scanner.nextLine();
-                System.out.println("PRIS");
-                float price = Float.parseFloat(scanner.nextLine());
-                System.out.println("KATEGORI:");                         // Behöver lösa!
-                Category category = new Category(scanner.nextLine());
-                System.out.println("EAN kod:");
-                int ean = Integer.parseInt(scanner.nextLine());
-                System.out.println("Antal i lager:");
-                int stock = Integer.parseInt(scanner.nextLine());
+                String name = InputHandler.getStringInput();
 
+                System.out.println("\nPRIS");
+                float price = InputHandler.getFloatInput();
+
+                System.out.println("\nTillgängliga Kategorier: ");
+                categories.printCategories();
+
+                System.out.println("\nKATEGORI:");
+                Category category = categories.getCategory(InputHandler.getStringInput());
+
+                // Sätt EAN kod
+                int maxEan = productList.getList().stream()
+                        .mapToInt(Product::getEan)
+                        .max()
+                        .orElse(0);
+                int ean = maxEan + 1;
+                System.out.println("\nVarans EAN kod: " + ean);
+
+                System.out.println("\nAntal i lager:");
+                int stock = InputHandler.getIntegerInput();
+
+                // Skapa produkten och lägg till i listan
                 productList.addProductToList(new Product(name, price, category, ean, stock));
+
                 System.out.println("""
                                                 
                         Varan är tillagd...
                                                 
-                        Lägga till en till? (Y/N)
-                        """);
+                        Lägga till en till vara? (Y/N)""");
+                choice = InputHandler.getStringInput();
 
-                input = scanner.nextLine();
-            } while (!input.equalsIgnoreCase("n"));
+            } while (!choice.equalsIgnoreCase("n"));
 
             System.out.println("\nTillgängliga varor:");
             productList.printList();
 
-            System.out.println("\nÅtergår till föregående meny\n");
+            System.out.println("\nÅtergår till föregående meny...");
         }
     }
+
 }

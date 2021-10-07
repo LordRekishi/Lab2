@@ -5,7 +5,7 @@ import java.util.Scanner;
 public interface MenuTemplate<T> {
     void run();
     void printMenuOptions();
-    T readChoice(Scanner scanner);
+    T readChoice();
     void executeChoice(T choice);
     void shutDown();
 }

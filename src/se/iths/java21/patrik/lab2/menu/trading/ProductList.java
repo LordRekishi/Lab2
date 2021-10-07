@@ -1,6 +1,6 @@
-package se.iths.java21.patrik.lab2.menu.tools;
+package se.iths.java21.patrik.lab2.menu.trading;
 
-import se.iths.java21.patrik.lab2.menu.trading.Product;
+import se.iths.java21.patrik.lab2.menu.tools.InputHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +12,16 @@ public class ProductList {
 
     public ProductList() {
         products = new ArrayList<>();
+    }
+
+    public Product searchProduct() {
+        String searchInput = InputHandler.getStringInput();
+
+        if (InputHandler.isNumeric(searchInput)) {
+            return this.getProduct(Integer.parseInt(searchInput));
+        } else {
+            return this.getProduct(searchInput);
+        }
     }
 
     public List<Product> getList() {
@@ -44,15 +54,15 @@ public class ProductList {
                 .toList();
     }
 
-    public List<Product> sortByPrice() {
-        return products.stream()
-                .sorted(Comparator.comparing(Product::getPrice))
-                .toList();
-    }
-
     public List<Product> sortByName() {
         return products.stream()
                 .sorted(Comparator.comparing(Product::getName))
+                .toList();
+    }
+
+    public List<Product> sortByPrice() {
+        return products.stream()
+                .sorted(Comparator.comparing(Product::getPrice))
                 .toList();
     }
 
@@ -65,8 +75,6 @@ public class ProductList {
     public void removeProduct(Product product) {
         products.remove(product);
     }
-
-
 
     public void printList() {
         products.forEach(System.out::println);

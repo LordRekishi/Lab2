@@ -1,4 +1,4 @@
-package se.iths.java21.patrik.lab2.menu.tools;
+package se.iths.java21.patrik.lab2.menu.trading;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,10 +8,6 @@ public class CategoryList {
 
     public CategoryList() {
         categorySet = new HashSet<>();
-    }
-
-    public Set<Category> getCategorySet() {
-        return categorySet;
     }
 
     public void addCategory(Category category) {
@@ -25,7 +21,13 @@ public class CategoryList {
                 .orElse(new Category("NONE"));
     }
 
+    public void removeCategory(Category category) {
+        categorySet.remove(category);
+    }
+
     public void printCategories() {
         categorySet.forEach(System.out::println);
     }
 }
+
+// Iterator
