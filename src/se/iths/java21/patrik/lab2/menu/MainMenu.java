@@ -14,7 +14,7 @@ public class MainMenu implements MenuTemplate<Integer> {
 
     public MainMenu(ProductList productList, CategoryList categories, ShoppingCart cart) {
         AdminMenu admin = new AdminMenu(categories, productList);
-        TradeMenu trade = new TradeMenu(productList, cart);
+        TradeMenu trade = new TradeMenu(productList, categories, cart);
         this.productList = productList;
         this.categories = categories;
 

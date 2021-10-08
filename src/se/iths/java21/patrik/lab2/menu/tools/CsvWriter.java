@@ -13,15 +13,14 @@ import java.util.Map;
 import static se.iths.java21.patrik.lab2.menu.tools.CheckedSupplier.wrap;
 
 public class CsvWriter {
-    private static final StringBuilder stringBuilder = new StringBuilder();
-
     public static void writeReceipt(ShoppingCart cart) {
         Path receiptPath = Path.of(wrap(() -> ClassLoader.getSystemResource("kvitto.csv").toURI()));
         List<String> strings = new ArrayList<>();
         cart.getCart().entrySet().forEach(productIntegerEntry -> convertToStringsAndIntegers(productIntegerEntry, strings));
-        strings.add("Summa: " + cart.getTotalPrice() + " kr");
+        strings.add(String.format("Summa: %.2f kr", cart.getTotalPrice()));
 
         try {
+            Files.write(receiptPath, strings, StandardOpenOption.DELETE_ON_CLOSE);
             Files.write(receiptPath, strings, StandardOpenOption.CREATE);
         } catch (IOException e) {
             e.printStackTrace();
@@ -29,11 +28,12 @@ public class CsvWriter {
     }
 
     private static void convertToStringsAndIntegers(Map.Entry<Product, Integer> productIntegerEntry, List<String> strings) {
+        StringBuilder stringBuilder = new StringBuilder();
         strings.add(stringBuilder
                 .append(productIntegerEntry.getKey().getName())
                 .append(": ")
                 .append(productIntegerEntry.getKey().getPrice())
-                .append(" kr / styck, Antal: ")
+                .append(" kr/st, Antal: ")
                 .append(productIntegerEntry.getValue())
                 .append(" stycken")
                 .toString());
@@ -52,6 +52,7 @@ public class CsvWriter {
     }
 
     private static void convertToStrings(Product product, List<String> strings) {
+        StringBuilder stringBuilder = new StringBuilder();
         strings.add(stringBuilder
                 .append(product.getName())
                 .append(",")

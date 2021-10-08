@@ -5,10 +5,12 @@ import se.iths.java21.patrik.lab2.menu.tools.*;
 public class TradeMenu implements MenuTemplate<Integer> {
     private final Command[] commands = new Command[4];
     private static ProductList productList;
+    private static CategoryList categories;
     private static ShoppingCart cart;
 
-    public TradeMenu(ProductList productList, ShoppingCart cart) {
+    public TradeMenu(ProductList productList, CategoryList categories, ShoppingCart cart) {
         TradeMenu.productList = productList;
+        TradeMenu.categories = categories;
         TradeMenu.cart = cart;
 
         commands[1] = AddProductToCart::run;
@@ -80,7 +82,7 @@ public class TradeMenu implements MenuTemplate<Integer> {
             switch (choice) {
                 case 1 -> {
                     System.out.println("\nSök på NAMN eller EAN kod");
-                    Product foundProduct = findProductInStock();
+                    Product foundProduct = findProductStock();
 
                     System.out.println("\nLägga till i varukorgen? (Y/N)");
 
@@ -101,14 +103,19 @@ public class TradeMenu implements MenuTemplate<Integer> {
                     float max = InputHandler.getFloatInput();
 
                     System.out.println("\nVAROR INOM PRISINTERVALL:");
-                    productList.getProductsByPrice(min, max).forEach(System.out::println);
+                    productList.getProductsByPrice(min, max).forEach(product -> System.out.println(
+                            product.getName() +
+                                    ": EAN kod: " + product.getEan() +
+                                    ", Pris: " + product.getPrice() + " kr" +
+                                    ", Kategori: " + product.getCategory().getName() +
+                                    ", Antal: " + product.getQuantity() + " st"));
 
                     System.out.println("\nVill du lägga till en vara i varukorgen? (Y/N)");
                     if (InputHandler.getStringInput().equalsIgnoreCase("y")) {
                         System.out.println("""
                                                             
                                 Skriv NAMN eller EAN kod på den vara du vill LÄGGA TILL i varukorgen, tryck sedan ENTER""");
-                        Product foundProduct = findProductInStock();
+                        Product foundProduct = findProductStock();
                         chooseQuantityThenAddToCart(foundProduct);
                     }
                 }
@@ -129,15 +136,30 @@ public class TradeMenu implements MenuTemplate<Integer> {
                     switch (choice) {
                         case 1 -> {
                             System.out.println("\nPRODUKTER efter NAMN:");
-                            productList.sortByName().forEach(System.out::println);
+                            productList.sortByName().forEach(product -> System.out.println(
+                                    product.getName() +
+                                            ": EAN kod: " + product.getEan() +
+                                            ", Pris: " + product.getPrice() + " kr" +
+                                            ", Kategori: " + product.getCategory().getName() +
+                                            ", Antal: " + product.getQuantity() + " st"));
                         }
                         case 2 -> {
                             System.out.println("\nPRODUKTER efter PRIS:");
-                            productList.sortByPrice().forEach(System.out::println);
+                            productList.sortByPrice().forEach(product -> System.out.println(
+                                    product.getName() +
+                                            ": EAN kod: " + product.getEan() +
+                                            ", Pris: " + product.getPrice() + " kr" +
+                                            ", Kategori: " + product.getCategory().getName() +
+                                            ", Antal: " + product.getQuantity() + " st"));
                         }
                         case 3 -> {
                             System.out.println("\nPRODUKTER efter KATEGORI:");
-                            productList.sortByCategory().forEach(System.out::println);
+                            productList.sortByCategory().forEach(product -> System.out.println(
+                                    product.getName() +
+                                            ": EAN kod: " + product.getEan() +
+                                            ", Pris: " + product.getPrice() + " kr" +
+                                            ", Kategori: " + product.getCategory().getName() +
+                                            ", Antal: " + product.getQuantity() + " st"));
                         }
                     }
 
@@ -146,7 +168,7 @@ public class TradeMenu implements MenuTemplate<Integer> {
                         System.out.println("""
                                                             
                                 Skriv NAMN eller EAN kod på den vara du vill LÄGGA TILL i varukorgen, tryck sedan ENTER""");
-                        Product foundProduct = findProductInStock();
+                        Product foundProduct = findProductStock();
                         chooseQuantityThenAddToCart(foundProduct);
                     }
                 }
@@ -162,17 +184,20 @@ public class TradeMenu implements MenuTemplate<Integer> {
 
         private static void removeFromCart() {
             System.out.println("\nTa bort varor? (Y/N)");
-            if (InputHandler.getStringInput().equalsIgnoreCase("y")){
+            if (InputHandler.getStringInput().equalsIgnoreCase("y")) {
                 System.out.println("""
-                                                            
-                                Skriv NAMN eller EAN kod på den vara du vill TA BORT från varukorgen, tryck sedan ENTER""");
-                Product foundProduct = findProductInCart();
+                                                    
+                        Skriv NAMN eller EAN kod på den vara du vill TA BORT från varukorgen, tryck sedan ENTER""");
+                Product foundProduct = findProductCart();
                 chooseQuantityThenRemoveFromCart(foundProduct);
             }
         }
 
         private static void printCart() {
-            System.out.println("\nVARUKORGEN:");
+            System.out.println("""
+
+                    VARUKORGEN
+                    ----------------------+""");
             cart.printCart();
         }
     }
@@ -180,15 +205,46 @@ public class TradeMenu implements MenuTemplate<Integer> {
     private static class CheckOut {
 
         public static void run() {
+            System.out.println("""
+                                        
+                    +-----------------------+
+                    | Välkommen till KASSAN |
+                    +-----------------------+
+                                        
+                    VARUKORGEN
+                    ----------------------+""");
+            cart.printCart();
 
+            System.out.println("\nKontrollerar rabatter...");
+            Discounts.checkDiscounts(cart);
+
+            System.out.println("\nGå vidare till betalning? (Y/N)");
+            if (InputHandler.getStringInput().equalsIgnoreCase("y")) {
+                Discounts.executeDiscounts(cart);
+                CsvWriter.writeReceipt(cart);
+                System.out.println("""
+                                                
+                        TACK FÖR DITT KÖP
+
+                        Du hittar ditt kvitto i följande mapp
+                        Lab2\\out\\production\\Lab2
+                        """);
+                System.out.println("Spara ändringar? (Y/N)");
+                if (InputHandler.getStringInput().equalsIgnoreCase("y")) {
+                    CsvWriter.saveCategorySet(categories);
+                    CsvWriter.saveProductList(productList);
+                }
+                System.out.println("\nAvslutar programmet...");
+                System.exit(0);
+            }
         }
-
     }
 
-    private static Product findProductInStock() {
+    private static Product findProductStock() {
         Product foundProduct = productList.searchProduct();
 
-        System.out.println("\nVALD PRODUKT:" +
+        System.out.println("\nVALD PRODUKT" +
+                "\n----------------------+" +
                 "\n" + foundProduct.getName() +
                 ": EAN kod: " + foundProduct.getEan() +
                 ", Pris: " + foundProduct.getPrice() + " kr" +
@@ -197,15 +253,16 @@ public class TradeMenu implements MenuTemplate<Integer> {
         return foundProduct;
     }
 
-    private static Product findProductInCart() {
+    private static Product findProductCart() {
         Product foundProduct = cart.searchProduct();
 
-        System.out.println("\nVALD PRODUCT:" +
+        System.out.println("\nVALD PRODUKT" +
+                "\n----------------------+" +
                 "\n" + foundProduct.getName() +
                 ": EAN kod: " + foundProduct.getEan() +
                 ", Pris: " + foundProduct.getPrice() + " kr" +
                 ", Kategori: " + foundProduct.getCategory().getName() +
-                ", Antal: " + foundProduct.getQuantity() + " st");
+                ", Antal: " + cart.getCart().get(foundProduct) + " st");
         return foundProduct;
     }
 
@@ -216,7 +273,10 @@ public class TradeMenu implements MenuTemplate<Integer> {
         cart.addProduct(foundProduct, quantity);
 
         System.out.println("\nVaran lagt i varukorgen!");
-        System.out.println("\nDIN VARUKORG:");
+        System.out.println("""
+
+                DIN VARUKORG
+                ----------------------+""");
         cart.printCart();
 
         System.out.println("\nÅtergår till föregående meny...");
@@ -226,10 +286,13 @@ public class TradeMenu implements MenuTemplate<Integer> {
         System.out.println("\nAntal att ta bort:");
         int quantity = InputHandler.getIntegerInput();
 
-        cart.removeAmountFromProduct(foundProduct, quantity, productList);
+        cart.removeAmountFromProduct(foundProduct, quantity);
 
         System.out.println("\nAntal borttagna från varukorg");
-        System.out.println("\nDIN VARUKORG:");
+        System.out.println("""
+
+                DIN VARUKORG
+                ----------------------+""");
         cart.printCart();
 
         System.out.println("\nÅtergår till föregående meny...");

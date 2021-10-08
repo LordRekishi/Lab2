@@ -18,9 +18,9 @@ public class InputHandler {
     }
 
     public static boolean isNumeric(String searchInput) {
-
         if (searchInput == null)
             return false;
+
         try {
             Integer.parseInt(searchInput);
         } catch (NumberFormatException e) {
