@@ -19,11 +19,13 @@ public class ChangeProducts implements MenuTemplate<Integer> {
         commands[2] = AddProduct::run;
         commands[3] = this::printList;
         commands[0] = this::shutDown;
-
     }
 
     private void printList() {
-        System.out.println("\nPRODUKTER:");
+        System.out.println("""
+                
+                PRODUKTER:
+                ----------------------+""");
         productList.printList();
     }
 
@@ -90,7 +92,7 @@ public class ChangeProducts implements MenuTemplate<Integer> {
                             1. PRIS
                             2. SALDO
                             0. Exit
-                            
+                                                        
                             Gör ditt menyval genom att skriva SIFFRAN och sedan trycka ENTER!                     
                             ↓ Skriv här ↓""");
 
@@ -114,9 +116,9 @@ public class ChangeProducts implements MenuTemplate<Integer> {
                     System.out.println("\nÅtergår till föregående meny...");
                 }
                 case 2 -> {
-                    System.out.println("Det nuvarande lagersaldot är: " + foundProduct.getQuantity() +
-                            "st." +
-                            "\nSkriv det nya saldot: " +
+                    System.out.println("\nDet nuvarande lagersaldot är: " + foundProduct.getQuantity() +
+                            " st." +
+                            "\nHur många skall läggas till: " +
                             "\n↓ Skriv här ↓");
                     foundProduct.setQuantity(InputHandler.getIntegerInput());
                     System.out.println("""
@@ -140,19 +142,21 @@ public class ChangeProducts implements MenuTemplate<Integer> {
                         Lägg till Produkt
                         ↓ Skriv här ↓""");
 
+                // Set name
                 System.out.println("\nVarans NAMN:");
                 String name = InputHandler.getStringInput();
 
+                // Set price
                 System.out.println("\nPRIS");
                 float price = InputHandler.getFloatInput();
 
+                // Set Category
                 System.out.println("\nTillgängliga Kategorier: ");
                 categories.printCategories();
-
                 System.out.println("\nKATEGORI:");
                 Category category = categories.getCategory(InputHandler.getStringInput());
 
-                // Sätt EAN kod
+                // Set EAN code automatically
                 int maxEan = productList.getList().stream()
                         .mapToInt(Product::getEan)
                         .max()
@@ -160,8 +164,10 @@ public class ChangeProducts implements MenuTemplate<Integer> {
                 int ean = maxEan + 1;
                 System.out.println("\nVarans EAN kod: " + ean);
 
+                // Set Quantity in stock
                 System.out.println("\nAntal i lager:");
                 int stock = InputHandler.getIntegerInput();
+
 
                 // Skapa produkten och lägg till i listan
                 productList.addProductToList(new Product(name, price, category, ean, stock));

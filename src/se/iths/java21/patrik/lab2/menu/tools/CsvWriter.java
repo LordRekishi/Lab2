@@ -13,6 +13,8 @@ import java.util.Map;
 import static se.iths.java21.patrik.lab2.menu.tools.CheckedSupplier.wrap;
 
 public class CsvWriter {
+    private static final StringBuilder stringBuilder = new StringBuilder();
+
     public static void writeReceipt(ShoppingCart cart) {
         Path receiptPath = Path.of(wrap(() -> ClassLoader.getSystemResource("kvitto.csv").toURI()));
         List<String> strings = new ArrayList<>();
@@ -27,8 +29,6 @@ public class CsvWriter {
     }
 
     private static void convertToStringsAndIntegers(Map.Entry<Product, Integer> productIntegerEntry, List<String> strings) {
-        StringBuilder stringBuilder = new StringBuilder();
-
         strings.add(stringBuilder
                 .append(productIntegerEntry.getKey().getName())
                 .append(": ")
@@ -52,8 +52,6 @@ public class CsvWriter {
     }
 
     private static void convertToStrings(Product product, List<String> strings) {
-        StringBuilder stringBuilder = new StringBuilder();
-
         strings.add(stringBuilder
                 .append(product.getName())
                 .append(",")

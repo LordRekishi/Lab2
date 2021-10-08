@@ -128,15 +128,15 @@ public class TradeMenu implements MenuTemplate<Integer> {
 
                     switch (choice) {
                         case 1 -> {
-                            System.out.println("\n PRODUKTER efter NAMN:");
+                            System.out.println("\nPRODUKTER efter NAMN:");
                             productList.sortByName().forEach(System.out::println);
                         }
                         case 2 -> {
-                            System.out.println("\n PRODUKTER efter PRIS:");
+                            System.out.println("\nPRODUKTER efter PRIS:");
                             productList.sortByPrice().forEach(System.out::println);
                         }
                         case 3 -> {
-                            System.out.println("\n PRODUKTER efter KATEGORI:");
+                            System.out.println("\nPRODUKTER efter KATEGORI:");
                             productList.sortByCategory().forEach(System.out::println);
                         }
                     }
@@ -188,16 +188,24 @@ public class TradeMenu implements MenuTemplate<Integer> {
     private static Product findProductInStock() {
         Product foundProduct = productList.searchProduct();
 
-        System.out.println("\nVald Produkt:" +
-                "\n" + foundProduct);
+        System.out.println("\nVALD PRODUKT:" +
+                "\n" + foundProduct.getName() +
+                ": EAN kod: " + foundProduct.getEan() +
+                ", Pris: " + foundProduct.getPrice() + " kr" +
+                ", Kategori: " + foundProduct.getCategory().getName() +
+                ", Antal: " + foundProduct.getQuantity() + " st");
         return foundProduct;
     }
 
     private static Product findProductInCart() {
         Product foundProduct = cart.searchProduct();
 
-        System.out.println("\nVald Produkt:" +
-                "\n" + foundProduct);
+        System.out.println("\nVALD PRODUCT:" +
+                "\n" + foundProduct.getName() +
+                ": EAN kod: " + foundProduct.getEan() +
+                ", Pris: " + foundProduct.getPrice() + " kr" +
+                ", Kategori: " + foundProduct.getCategory().getName() +
+                ", Antal: " + foundProduct.getQuantity() + " st");
         return foundProduct;
     }
 
@@ -227,50 +235,3 @@ public class TradeMenu implements MenuTemplate<Integer> {
         System.out.println("\nÅtergår till föregående meny...");
     }
 }
-
-// Buy item, add to cart, remove from stock
-
-//        System.out.println("Available products");
-//                productList.printList();
-//                System.out.println("");
-//
-//                System.out.println("Set Product and Amount 2 DONE");
-//                cart.setProductAndAmount(1, 2, productList);
-//                System.out.println("Print Cart");
-//                cart.printCart(cart);
-//                System.out.println("");
-//
-//                System.out.println("Available products");
-//                productList.printList();
-//                System.out.println("");
-//
-//                System.out.println("Add 3 to Product DONE");
-//                cart.addAmountToProduct(1, 3, productList, cart);
-//                System.out.println("Print Cart");
-//                cart.printCart(cart);
-//                System.out.println("");
-//
-//                System.out.println("Available products");
-//                productList.printList();
-//                System.out.println("");
-//
-//                System.out.println("Remove 4 of Product DONE");
-//                cart.removeAmountFromProduct(1, 4, productList, cart);
-//                System.out.println("Print Cart");
-//                cart.printCart(cart);
-//                System.out.println("");
-//
-//                System.out.println("Available products");
-//                productList.printList();
-//                System.out.println("");
-//
-//                System.out.println("Remove 2 of Product = 0 DONE");
-//                cart.removeAmountFromProduct(1, 2, productList, cart);
-//                System.out.println("Print Cart");
-//                cart.printCart(cart);
-//                System.out.println(cart.getTotalPrice());
-//                System.out.println("");
-//
-//                System.out.println("Available products");
-//                productList.printList();
-//                System.out.println("");

@@ -79,11 +79,11 @@ public class ProductList implements Iterable<Product> {
 
     public void printList() {
         products.forEach(product -> System.out.println(
-                product.getName() + ": " +
-                        "\nEAN kod: " + product.getEan() +
-                        ", Pris: " + product.getPrice() +
+                product.getName() +
+                        ": EAN kod: " + product.getEan() +
+                        ", Pris: " + product.getPrice() + " kr" +
                         ", Kategori: " + product.getCategory().getName() +
-                        ", Antal: " + product.getQuantity()));
+                        ", Antal: " + product.getQuantity() + " st"));
     }
 
     @Override
@@ -91,7 +91,7 @@ public class ProductList implements Iterable<Product> {
         return new ProductListIterator();
     }
 
-    private class ProductListIterator implements Iterator<Product> {
+    private static class ProductListIterator implements Iterator<Product> {
         private int position = 0;
 
         @Override

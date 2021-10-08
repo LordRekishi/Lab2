@@ -111,12 +111,12 @@ public class ShoppingCart {
         else {
             this.cart.entrySet()
                     .forEach(product -> System.out.println(
-                            product.getKey().getName() + ": " +
-                                    "\nEAN kod: " + product.getKey().getEan() +
-                                    ", Pris: " + product.getKey().getPrice() +
+                            product.getKey().getName() +
+                                    ": EAN kod: " + product.getKey().getEan() +
+                                    ", Pris: " + product.getKey().getPrice() + " kr" +
                                     ", Kategori: " + product.getKey().getCategory().getName() +
-                                    ", Antal i Korgen: " + product.getKey()));
-            System.out.println("Summa: " + this.getTotalPrice() + " kr");
+                                    ", Antal i Korgen: " + product.getValue() + " st"));
+            System.out.printf("Summa: %.2f kr\n", this.getTotalPrice());
         }
     }
 
