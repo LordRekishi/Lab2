@@ -10,6 +10,14 @@ public class CategoryList {
         categorySet = new HashSet<>();
     }
 
+    public Set<Category> getCategorySet() {
+        return categorySet;
+    }
+
+    public void setCategorySet(Set<Category> categorySet) {
+        CategoryList.categorySet = categorySet;
+    }
+
     public void addCategory(Category category) {
         categorySet.add(category);
     }

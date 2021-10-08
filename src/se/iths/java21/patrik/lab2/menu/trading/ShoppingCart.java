@@ -9,7 +9,11 @@ public class ShoppingCart {
     private double totalPrice;
 
     public ShoppingCart() {
-        cart  = new HashMap<>();
+        cart = new HashMap<>();
+    }
+
+    public Map<Product, Integer> getCart() {
+        return cart;
     }
 
     public double getTotalPrice() {
@@ -26,19 +30,6 @@ public class ShoppingCart {
         }
     }
 
-    public void addProduct(Product product, int amount) {
-        int exists = cart.keySet().stream()
-                .mapToInt(Product::getEan)
-                .filter(value -> value == product.getEan())
-                .findFirst()
-                .orElse(0);
-
-        if (exists <= 0)
-            setProductAndAmount(product, amount);
-        else
-            addAmountToProduct(product, amount);
-    }
-
     public Product getProduct(String name) {
         return cart.keySet().stream()
                 .filter(product -> product.getName().contains(name))
@@ -53,8 +44,21 @@ public class ShoppingCart {
                 .orElse(new Product("NULL", 0, new Category("NONE"), 0, 0));
     }
 
+    public void addProduct(Product product, int amount) {
+        int exists = cart.keySet().stream()
+                .mapToInt(Product::getEan)
+                .filter(value -> value == product.getEan())
+                .findFirst()
+                .orElse(0);
+
+        if (exists <= 0)
+            setProductAndAmount(product, amount);
+        else
+            addAmountToProduct(product, amount);
+    }
+
     public void setProductAndAmount(Product product, int amount) {
-        Product addedProduct = new Product(product, amount);
+        Product addedProduct = new Product(product);
 
         if (amount <= 0)
             System.out.println("Amount too low...");
@@ -65,19 +69,19 @@ public class ShoppingCart {
         }
     }
 
-    public void addAmountToProduct(Product stockProduct, int amount) {
-            int ean = stockProduct.getEan();
-            Product cartProduct = this.getProduct(ean);
-            int currentStock = cart.get(cartProduct);
+    public void addAmountToProduct(Product product, int amount) {
+        int ean = product.getEan();
+        Product cartProduct = this.getProduct(ean);
+        int currentStock = cart.get(cartProduct);
 
-            // Put cart product and new stock
-            cart.put(cartProduct, currentStock + amount);
-            // Update cart product object
-            cartProduct.setQuantity(amount);
-            // Update stock
-            stockProduct.setQuantity(-amount);
-            // Update total price
-            totalPrice += (amount * stockProduct.getPrice());
+        // Put cart product and new stock
+        cart.put(cartProduct, currentStock + amount);
+        // Update cart product object
+        cartProduct.setQuantity(amount);
+        // Update stock
+        product.setQuantity(-amount);
+        // Update total price
+        totalPrice += (amount * product.getPrice());
     }
 
     public void removeAmountFromProduct(Product product, int amount, ProductList productList) {
@@ -105,8 +109,13 @@ public class ShoppingCart {
         if (this.cart.isEmpty())
             System.out.println("Cart is Empty...");
         else {
-            this.cart.keySet()
-                    .forEach(product -> System.out.println(product.getName() + ": EAN kod: " + product.getEan() + ". Pris: " + product.getPrice() + " kr/st. I korgen: " + product.getQuantity() + " st"));
+            this.cart.entrySet()
+                    .forEach(product -> System.out.println(
+                            product.getKey().getName() + ": " +
+                                    "\nEAN kod: " + product.getKey().getEan() +
+                                    ", Pris: " + product.getKey().getPrice() +
+                                    ", Kategori: " + product.getKey().getCategory().getName() +
+                                    ", Antal i Korgen: " + product.getKey()));
             System.out.println("Summa: " + this.getTotalPrice() + " kr");
         }
     }

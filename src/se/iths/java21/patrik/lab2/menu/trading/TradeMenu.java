@@ -152,10 +152,6 @@ public class TradeMenu implements MenuTemplate<Integer> {
                 }
             }
         }
-
-
-
-
     }
 
     private static class Cart {

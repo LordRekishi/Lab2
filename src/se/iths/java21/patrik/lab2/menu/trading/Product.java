@@ -17,12 +17,12 @@ public class Product {
         this.quantity = stock;
     }
 
-    public Product(Product product, int amount) {
+    public Product(Product product) {
         this.name = product.name;
         this.price = product.price;
         this.category = product.category;
         this.ean = product.ean;
-        this.quantity = amount;
+        this.quantity = product.quantity;
     }
 
     public String getName() {
@@ -50,7 +50,7 @@ public class Product {
     }
 
     public void setQuantity(int amount) {
-        if (this.quantity + amount <= 0)
+        if (this.quantity + amount < 0)
             this.quantity = 0;
         else
             this.quantity = this.quantity + amount;
@@ -71,9 +71,12 @@ public class Product {
 
     @Override
     public String toString() {
-        if (this.getName().equals("NO PRODUCT FOUND"))
-            return "No such product found!";
-        else
-            return name + ": pris: " + price + " kr, kategori: " + category + ", EAN kod:" + ean + ", antal: " + quantity + " st.";
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", category=" + category +
+                ", ean=" + ean +
+                ", quantity=" + quantity +
+                '}';
     }
 }
