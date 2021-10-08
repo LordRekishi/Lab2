@@ -11,14 +11,16 @@ public class MainMenu implements MenuTemplate<Integer> {
     private final Command[] commands = new Command[4];
     ProductList productList;
     CategoryList categories;
+    AdminMenu admin;
+    TradeMenu trade;
 
     public MainMenu(ProductList productList, CategoryList categories, ShoppingCart cart) {
-        AdminMenu admin = new AdminMenu(categories, productList);
-        TradeMenu trade = new TradeMenu(productList, categories, cart);
+        this.admin = new AdminMenu(categories, productList);
+        this.trade = new TradeMenu(productList, categories, cart);
         this.productList = productList;
         this.categories = categories;
 
-        commands[1] = () -> System.out.println("Erbjudanden");
+        commands[1] = this::discounts;
         commands[2] = trade::run;
         commands[3] = admin::run;
         commands[0] = this::shutDown;
@@ -71,5 +73,27 @@ public class MainMenu implements MenuTemplate<Integer> {
         }
         System.out.println("\nAvslutar programmet...");
         System.exit(0);
+    }
+
+    private void discounts() {
+        System.out.println("""
+                                
+                +------------------------+
+                | MATBUTIKEN Erbjudanden |
+                +------------------------+
+                                
+                --------------------------------+
+                Köp för över 500 kr och få 10% rabatt på hela ditt köp!
+                --------------------------------+
+                Älskar du kantareller? Vi också, det är därför vi har köp 3, betala för 2 resten av året!
+                --------------------------------+
+                                
+                VÄLKOMMEN IN TILL VÅR MATBUTIK!
+                                
+                Direkt till Handla? (Y/N)""");
+        if (InputHandler.getStringInput().equalsIgnoreCase("y")) {
+            Runnable runnable = trade::run;
+            runnable.run();
+        }
     }
 }

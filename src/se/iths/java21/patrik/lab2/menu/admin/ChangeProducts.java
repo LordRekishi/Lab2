@@ -23,7 +23,7 @@ public class ChangeProducts implements MenuTemplate<Integer> {
 
     private void printList() {
         System.out.println("""
-                
+                                
                 PRODUKTER:
                 ----------------------+""");
         productList.printList();
@@ -93,7 +93,7 @@ public class ChangeProducts implements MenuTemplate<Integer> {
                             2. SALDO
                             0. Exit
                                                         
-                            Gör ditt menyval genom att skriva SIFFRAN och sedan trycka ENTER!                     
+                            Gör ditt menyval genom att skriva SIFFRAN och sedan trycka ENTER!
                             ↓ Skriv här ↓""");
 
                     int choice = InputHandler.getIntegerInput();

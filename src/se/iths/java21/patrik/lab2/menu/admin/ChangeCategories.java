@@ -64,7 +64,6 @@ public class ChangeCategories implements MenuTemplate<Integer> {
     }
 
     static class SearchCategory {
-
         public static void run() {
 
             System.out.println("\nSök på Kategorins NAMN");
@@ -102,7 +101,6 @@ public class ChangeCategories implements MenuTemplate<Integer> {
     }
 
     static class AddCategory {
-
         public static void run() {
             String choice;
 
@@ -123,6 +121,7 @@ public class ChangeCategories implements MenuTemplate<Integer> {
                         Kategorin är tillagd...
                                                 
                         Lägga till en till kategori? (Y/N)""");
+
                 choice = InputHandler.getStringInput();
 
             } while (!choice.equalsIgnoreCase("n"));
