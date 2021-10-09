@@ -1,19 +1,19 @@
 package se.iths.java21.patrik.lab2.menu.admin;
 
 import se.iths.java21.patrik.lab2.menu.tools.*;
-import se.iths.java21.patrik.lab2.menu.trading.CategoryList;
+import se.iths.java21.patrik.lab2.menu.trading.CategorySet;
 import se.iths.java21.patrik.lab2.menu.trading.ProductList;
 
 public class AdminMenu implements MenuTemplate<Integer> {
     private final Command[] commands = new Command[4];
-    ProductList productList;
-    CategoryList categories;
+    private static ProductList productList;
+    private static CategorySet categories;
 
-    public AdminMenu(CategoryList categories, ProductList productList) {
+    public AdminMenu(CategorySet categories, ProductList productList) {
         ChangeProducts changeProducts = new ChangeProducts(categories, productList);
         ChangeCategories addCategories = new ChangeCategories(categories);
-        this.productList = productList;
-        this.categories = categories;
+        AdminMenu.productList = productList;
+        AdminMenu.categories = categories;
 
         commands[1] = changeProducts::run;
         commands[2] = addCategories::run;

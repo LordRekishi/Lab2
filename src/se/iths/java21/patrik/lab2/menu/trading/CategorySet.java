@@ -3,10 +3,10 @@ package se.iths.java21.patrik.lab2.menu.trading;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CategoryList {
+public class CategorySet {
     private static Set<Category> categorySet;
 
-    public CategoryList() {
+    public CategorySet() {
         categorySet = new HashSet<>();
     }
 
@@ -15,7 +15,7 @@ public class CategoryList {
     }
 
     public void setCategorySet(Set<Category> categorySet) {
-        CategoryList.categorySet = categorySet;
+        CategorySet.categorySet = categorySet;
     }
 
     public void addCategory(Category category) {
@@ -37,5 +37,3 @@ public class CategoryList {
         categorySet.forEach(System.out::println);
     }
 }
-
-// Iterator

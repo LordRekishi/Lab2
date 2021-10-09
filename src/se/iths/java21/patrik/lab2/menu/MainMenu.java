@@ -2,23 +2,23 @@ package se.iths.java21.patrik.lab2.menu;
 
 import se.iths.java21.patrik.lab2.menu.admin.AdminMenu;
 import se.iths.java21.patrik.lab2.menu.tools.*;
-import se.iths.java21.patrik.lab2.menu.trading.CategoryList;
+import se.iths.java21.patrik.lab2.menu.trading.CategorySet;
 import se.iths.java21.patrik.lab2.menu.trading.ProductList;
 import se.iths.java21.patrik.lab2.menu.trading.ShoppingCart;
 import se.iths.java21.patrik.lab2.menu.trading.TradeMenu;
 
 public class MainMenu implements MenuTemplate<Integer> {
     private final Command[] commands = new Command[4];
-    ProductList productList;
-    CategoryList categories;
-    AdminMenu admin;
-    TradeMenu trade;
+    private final AdminMenu admin;
+    private final TradeMenu trade;
+    private static ProductList productList;
+    private static CategorySet categories;
 
-    public MainMenu(ProductList productList, CategoryList categories, ShoppingCart cart) {
+    public MainMenu(ProductList productList, CategorySet categories, ShoppingCart cart) {
         this.admin = new AdminMenu(categories, productList);
         this.trade = new TradeMenu(productList, categories, cart);
-        this.productList = productList;
-        this.categories = categories;
+        MainMenu.productList = productList;
+        MainMenu.categories = categories;
 
         commands[1] = this::discounts;
         commands[2] = trade::run;

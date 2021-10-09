@@ -45,6 +45,7 @@ public class CsvWriter {
         productList.forEach(product -> convertToStrings(product, strings));
 
         try {
+            Files.write(productPath, strings, StandardOpenOption.DELETE_ON_CLOSE);
             Files.write(productPath, strings, StandardOpenOption.CREATE);
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,18 +67,19 @@ public class CsvWriter {
                 .toString());
     }
 
-    public static void saveCategorySet(CategoryList categories) {
+    public static void saveCategorySet(CategorySet categories) {
         Path categoryPath = Path.of(wrap(() -> ClassLoader.getSystemResource("categories.csv").toURI()));
         List<String> strings = getStrings(categories);
 
         try {
+            Files.write(categoryPath, strings, StandardOpenOption.DELETE_ON_CLOSE);
             Files.write(categoryPath, strings, StandardOpenOption.CREATE);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static List<String> getStrings(CategoryList categories) {
+    private static List<String> getStrings(CategorySet categories) {
         return categories.getCategorySet().stream()
                 .map(Category::getName)
                 .toList();

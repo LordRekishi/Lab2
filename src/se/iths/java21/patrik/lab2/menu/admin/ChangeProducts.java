@@ -2,16 +2,16 @@ package se.iths.java21.patrik.lab2.menu.admin;
 
 import se.iths.java21.patrik.lab2.menu.tools.*;
 import se.iths.java21.patrik.lab2.menu.trading.Category;
-import se.iths.java21.patrik.lab2.menu.trading.CategoryList;
+import se.iths.java21.patrik.lab2.menu.trading.CategorySet;
 import se.iths.java21.patrik.lab2.menu.trading.Product;
 import se.iths.java21.patrik.lab2.menu.trading.ProductList;
 
 public class ChangeProducts implements MenuTemplate<Integer> {
     private final Command[] commands = new Command[4];
-    private static CategoryList categories;
+    private static CategorySet categories;
     private static ProductList productList;
 
-    public ChangeProducts(CategoryList categories, ProductList productList) {
+    public ChangeProducts(CategorySet categories, ProductList productList) {
         ChangeProducts.categories = categories;
         ChangeProducts.productList = productList;
 
@@ -77,7 +77,7 @@ public class ChangeProducts implements MenuTemplate<Integer> {
             System.out.println("\nSök på NAMN eller EAN kod");
             Product foundProduct = productList.searchProduct();
 
-            System.out.println("\nVald Produkt: " + foundProduct);
+            Console.markedProductPrint(foundProduct);
 
             System.out.println("\nTa bort vald produkt? (Y/N)");
             if (InputHandler.getStringInput().equalsIgnoreCase("y")) {
@@ -105,26 +105,23 @@ public class ChangeProducts implements MenuTemplate<Integer> {
         private static void changeMenuChoiceExecution(Product foundProduct, int choice) {
             switch (choice) {
                 case 1 -> {
-                    System.out.println("\nDet nuvarande priset är: " + foundProduct.getPrice() + "kr." +
+                    System.out.println(
+                            "\nDet nuvarande priset är: " + foundProduct.getPrice() + "kr." +
                             "\nSkriv det nya priset: " +
                             "\n↓ Skriv här ↓");
                     foundProduct.setPrice(InputHandler.getFloatInput());
-                    System.out.println("""
-                                                            
-                            Den uppdaterade produkten:""");
-                    System.out.println(foundProduct);
+
+                    Console.updatedProductPrint(foundProduct);
                     System.out.println("\nÅtergår till föregående meny...");
                 }
                 case 2 -> {
-                    System.out.println("\nDet nuvarande lagersaldot är: " + foundProduct.getQuantity() +
-                            " st." +
+                    System.out.println(
+                            "\nDet nuvarande lagersaldot är: " + foundProduct.getQuantity() + " st." +
                             "\nHur många skall läggas till: " +
                             "\n↓ Skriv här ↓");
                     foundProduct.setQuantity(InputHandler.getIntegerInput());
-                    System.out.println("""
-                                                            
-                            Den uppdaterade produkten:""");
-                    System.out.println(foundProduct);
+
+                    Console.updatedProductPrint(foundProduct);
                     System.out.println("\nÅtergår till föregående meny...");
                 }
             }
@@ -140,7 +137,7 @@ public class ChangeProducts implements MenuTemplate<Integer> {
                 System.out.println("""
                                                 
                         Lägg till Produkt
-                        ↓ Skriv här ↓""");
+                        ----------------------+""");
 
                 // Set name
                 System.out.println("\nVarans NAMN:");

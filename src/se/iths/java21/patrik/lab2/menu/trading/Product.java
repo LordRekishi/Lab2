@@ -17,14 +17,6 @@ public class Product {
         this.quantity = stock;
     }
 
-    public Product(Product product) {
-        this.name = product.name;
-        this.price = product.price;
-        this.category = product.category;
-        this.ean = product.ean;
-        this.quantity = product.quantity;
-    }
-
     public String getName() {
         return name;
     }
@@ -50,10 +42,7 @@ public class Product {
     }
 
     public void setQuantity(int amount) {
-        if (this.quantity + amount < 0)
-            this.quantity = 0;
-        else
-            this.quantity = this.quantity + amount;
+        this.quantity = Math.max(this.quantity + amount, 0);
     }
 
     @Override

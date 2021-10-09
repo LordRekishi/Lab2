@@ -73,7 +73,7 @@ public class ProductList implements Iterable<Product> {
 
     public List<Product> sortByCategory() {
         return products.stream()
-                .sorted(Comparator.comparing(Product::getName))
+                .sorted(Comparator.comparing(product -> product.getCategory().getName()))
                 .toList();
     }
 

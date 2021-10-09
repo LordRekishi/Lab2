@@ -1,7 +1,7 @@
 package se.iths.java21.patrik.lab2.menu.tools;
 
 import se.iths.java21.patrik.lab2.menu.trading.Category;
-import se.iths.java21.patrik.lab2.menu.trading.CategoryList;
+import se.iths.java21.patrik.lab2.menu.trading.CategorySet;
 import se.iths.java21.patrik.lab2.menu.trading.Product;
 import se.iths.java21.patrik.lab2.menu.trading.ProductList;
 
@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 import static se.iths.java21.patrik.lab2.menu.tools.CheckedSupplier.wrap;
 
 public class CsvReader {
-    private static final CategoryList categorySet = new CategoryList();
+    private static final CategorySet categorySet = new CategorySet();
     private static final ProductList productList = new ProductList();
     private static final Pattern pattern = Pattern.compile(",");
 
@@ -43,7 +43,7 @@ public class CsvReader {
         return new Product(arr[0], Float.parseFloat(arr[1]), categorySet.getCategory(arr[2]), Integer.parseInt(arr[3]), Integer.parseInt(arr[4]));
     }
 
-    public static CategoryList readCategories() {
+    public static CategorySet readCategories() {
         Path categoryPath = Path.of(wrap(() -> ClassLoader.getSystemResource("categories.csv").toURI()));
 
         Set<Category> categories = Set.of();

@@ -5,7 +5,7 @@ import se.iths.java21.patrik.lab2.menu.tools.InputHandler;
 import java.util.*;
 
 public class ShoppingCart {
-    private Map<Product, Integer> cart;
+    private static Map<Product, Integer> cart;
     private double totalPrice;
 
     public ShoppingCart() {
@@ -102,17 +102,16 @@ public class ShoppingCart {
     }
 
     public void printCart() {
-        if (this.cart.isEmpty())
+        if (cart.isEmpty())
             System.out.println("Varukorgen är tom...");
         else {
-            this.cart.entrySet()
-                    .forEach(product -> System.out.println(
-                            product.getKey().getName() +
-                                    ": EAN kod: " + product.getKey().getEan() +
-                                    ", Pris: " + product.getKey().getPrice() + " kr" +
-                                    ", Kategori: " + product.getKey().getCategory().getName() +
-                                    ", Antal i Korgen: " + product.getValue() + " st"));
-            System.out.printf("Summa: %.2f kr\n", this.getTotalPrice());
+            cart.forEach((key, value) -> System.out.println(
+                    key.getName() +
+                            ": EAN kod: " + key.getEan() +
+                            ", Pris: " + key.getPrice() + " kr" +
+                            ", Kategori: " + key.getCategory().getName() +
+                            ", Antal i Korgen: " + value + " st"));
+            System.out.printf("Summa: %.2f kr\n", totalPrice);
         }
     }
 
