@@ -69,5 +69,6 @@ public class AdminMenu implements MenuTemplate<Integer> {
 
     @Override
     public void shutDown() {
+        System.out.println("\nÅtergår till föregående meny...");
     }
 }

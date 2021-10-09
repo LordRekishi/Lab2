@@ -34,6 +34,6 @@ public class CategorySet {
     }
 
     public void printCategories() {
-        categorySet.forEach(System.out::println);
+        categorySet.forEach(category -> System.out.println(category.getName()));
     }
 }

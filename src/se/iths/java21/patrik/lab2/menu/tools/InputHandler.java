@@ -6,23 +6,55 @@ public class InputHandler {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static int getIntegerInput() {
-        return Integer.parseInt(scanner.nextLine());
+        String input;
+
+        do {
+            input = scanner.nextLine();
+            if (!isNumericInteger(input)) {
+                System.out.println("""
+                        Försök igen!
+                        ↓ Skriv här ↓""");
+            }
+        } while (!isNumericInteger(input));
+        return Integer.parseInt(input);
     }
 
     public static float getFloatInput() {
-        return Float.parseFloat(scanner.nextLine());
+        String input;
+
+        do {
+            input = scanner.nextLine();
+            if (!isNumericFloat(input)) {
+                System.out.println("""
+                        Försök igen!
+                        ↓ Skriv här ↓""");
+            }
+        } while (!isNumericFloat(input));
+        return Float.parseFloat(input);
     }
 
     public static String getStringInput() {
         return scanner.nextLine();
     }
 
-    public static boolean isNumeric(String searchInput) {
+    public static boolean isNumericInteger(String searchInput) {
         if (searchInput == null)
             return false;
 
         try {
             Integer.parseInt(searchInput);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isNumericFloat(String searchInput) {
+        if (searchInput == null)
+            return false;
+
+        try {
+            Float.parseFloat(searchInput);
         } catch (NumberFormatException e) {
             return false;
         }

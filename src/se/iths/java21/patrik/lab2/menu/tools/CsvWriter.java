@@ -5,7 +5,6 @@ import se.iths.java21.patrik.lab2.menu.trading.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,8 +19,7 @@ public class CsvWriter {
         strings.add(String.format("Summa: %.2f kr", cart.getTotalPrice()));
 
         try {
-            Files.write(receiptPath, strings, StandardOpenOption.DELETE_ON_CLOSE);
-            Files.write(receiptPath, strings, StandardOpenOption.CREATE);
+            Files.write(receiptPath, strings);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,26 +43,19 @@ public class CsvWriter {
         productList.forEach(product -> convertToStrings(product, strings));
 
         try {
-            Files.write(productPath, strings, StandardOpenOption.DELETE_ON_CLOSE);
-            Files.write(productPath, strings, StandardOpenOption.CREATE);
+            Files.write(productPath, strings);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private static void convertToStrings(Product product, List<String> strings) {
-        StringBuilder stringBuilder = new StringBuilder();
-        strings.add(stringBuilder
-                .append(product.getName())
-                .append(",")
-                .append(product.getPrice())
-                .append(",")
-                .append(product.getCategory().getName())
-                .append(",")
-                .append(product.getEan())
-                .append(",")
-                .append(product.getQuantity())
-                .toString());
+        strings.add(String.join(",",
+                product.getName(),
+                String.valueOf(product.getPrice()),
+                product.getCategory().getName(),
+                String.valueOf(product.getEan()),
+                String.valueOf(product.getQuantity())));
     }
 
     public static void saveCategorySet(CategorySet categories) {
@@ -72,8 +63,7 @@ public class CsvWriter {
         List<String> strings = getStrings(categories);
 
         try {
-            Files.write(categoryPath, strings, StandardOpenOption.DELETE_ON_CLOSE);
-            Files.write(categoryPath, strings, StandardOpenOption.CREATE);
+            Files.write(categoryPath, strings);
         } catch (IOException e) {
             e.printStackTrace();
         }

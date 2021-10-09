@@ -58,6 +58,7 @@ public class TradeMenu implements MenuTemplate<Integer> {
 
     @Override
     public void shutDown() {
+        System.out.println("\nÅtergår till föregående meny...");
     }
 
     private static class AddProductToCart {

@@ -22,7 +22,7 @@ public class Console {
                 Den uppdaterade produkten
                 ----------------------+""");
         System.out.println(
-                "\n" + foundProduct.getName() +
+                foundProduct.getName() +
                         ": EAN kod: " + foundProduct.getEan() +
                         ", Pris: " + foundProduct.getPrice() + " kr" +
                         ", Kategori: " + foundProduct.getCategory().getName() +

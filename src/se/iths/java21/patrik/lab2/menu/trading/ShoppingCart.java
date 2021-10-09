@@ -27,7 +27,7 @@ public class ShoppingCart {
     public Product searchProduct() {
         String searchInput = InputHandler.getStringInput();
 
-        if (InputHandler.isNumeric(searchInput)) {
+        if (InputHandler.isNumericInteger(searchInput)) {
             return this.getProduct(Integer.parseInt(searchInput));
         } else {
             return this.getProduct(searchInput);
@@ -49,16 +49,13 @@ public class ShoppingCart {
     }
 
     public void addProduct(Product product, int amount) {
-
         if (cart.containsKey(product))
             addAmountToProduct(product, amount);
         else
             setProductAndAmount(product, amount);
-
     }
 
     public void setProductAndAmount(Product product, int amount) {
-
         if (amount <= 0)
             System.out.println("Antal för lite, försök igen...");
         else {

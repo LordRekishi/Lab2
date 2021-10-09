@@ -18,7 +18,10 @@ public class ChangeCategories implements MenuTemplate<Integer> {
     }
 
     private void printList() {
-        System.out.println("\nKATEGORIER:");
+        System.out.println("""
+
+                KATEGORIER:
+                ----------------------+""");
         categories.printCategories();
     }
 
@@ -61,6 +64,7 @@ public class ChangeCategories implements MenuTemplate<Integer> {
 
     @Override
     public void shutDown() {
+        System.out.println("\nÅtergår till föregående meny...");
     }
 
     static class SearchCategory {

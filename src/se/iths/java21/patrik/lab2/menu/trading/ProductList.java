@@ -30,7 +30,7 @@ public class ProductList implements Iterable<Product> {
     public Product searchProduct() {
         String searchInput = InputHandler.getStringInput();
 
-        if (InputHandler.isNumeric(searchInput)) {
+        if (InputHandler.isNumericInteger(searchInput)) {
             return this.getProduct(Integer.parseInt(searchInput));
         } else {
             return this.getProduct(searchInput);

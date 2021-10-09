@@ -69,6 +69,7 @@ public class ChangeProducts implements MenuTemplate<Integer> {
 
     @Override
     public void shutDown() {
+        System.out.println("\nÅtergår till föregående meny...");
     }
 
     static class SearchProduct {
@@ -79,26 +80,30 @@ public class ChangeProducts implements MenuTemplate<Integer> {
 
             Console.markedProductPrint(foundProduct);
 
-            System.out.println("\nTa bort vald produkt? (Y/N)");
-            if (InputHandler.getStringInput().equalsIgnoreCase("y")) {
-                productList.removeProduct(foundProduct);
-            } else {
-                System.out.println("\nÄndra på produkten? (Y/N)");
+            if (foundProduct.getEan() != 0) {
+                System.out.println("\nTa bort vald produkt? (Y/N)");
                 if (InputHandler.getStringInput().equalsIgnoreCase("y")) {
-                    System.out.println("""
-                                                        
-                            VAD VILL DU ÄNDRA?
-                            ----------------------+
-                            1. PRIS
-                            2. SALDO
-                            0. Exit
-                                                        
-                            Gör ditt menyval genom att skriva SIFFRAN och sedan trycka ENTER!
-                            ↓ Skriv här ↓""");
+                    productList.removeProduct(foundProduct);
+                } else {
+                    System.out.println("\nÄndra på produkten? (Y/N)");
+                    if (InputHandler.getStringInput().equalsIgnoreCase("y")) {
+                        System.out.println("""
+                                                            
+                                VAD VILL DU ÄNDRA?
+                                ----------------------+
+                                1. PRIS
+                                2. SALDO
+                                0. Exit
+                                                            
+                                Gör ditt menyval genom att skriva SIFFRAN och sedan trycka ENTER!
+                                ↓ Skriv här ↓""");
 
-                    int choice = InputHandler.getIntegerInput();
-                    changeMenuChoiceExecution(foundProduct, choice);
+                        int choice = InputHandler.getIntegerInput();
+                        changeMenuChoiceExecution(foundProduct, choice);
+                    }
                 }
+            } else {
+                System.out.println("\nÅtergår till föregående meny...");
             }
         }
 
@@ -107,8 +112,8 @@ public class ChangeProducts implements MenuTemplate<Integer> {
                 case 1 -> {
                     System.out.println(
                             "\nDet nuvarande priset är: " + foundProduct.getPrice() + "kr." +
-                            "\nSkriv det nya priset: " +
-                            "\n↓ Skriv här ↓");
+                                    "\nSkriv det nya priset: " +
+                                    "\n↓ Skriv här ↓");
                     foundProduct.setPrice(InputHandler.getFloatInput());
 
                     Console.updatedProductPrint(foundProduct);
@@ -117,8 +122,8 @@ public class ChangeProducts implements MenuTemplate<Integer> {
                 case 2 -> {
                     System.out.println(
                             "\nDet nuvarande lagersaldot är: " + foundProduct.getQuantity() + " st." +
-                            "\nHur många skall läggas till: " +
-                            "\n↓ Skriv här ↓");
+                                    "\nHur många skall läggas till: " +
+                                    "\n↓ Skriv här ↓");
                     foundProduct.setQuantity(InputHandler.getIntegerInput());
 
                     Console.updatedProductPrint(foundProduct);
