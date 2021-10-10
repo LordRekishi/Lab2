@@ -1,5 +1,9 @@
 package se.iths.java21.patrik.lab2.menu.tools;
 
+import se.iths.java21.patrik.lab2.menu.admin.categories.Category;
+import se.iths.java21.patrik.lab2.menu.admin.categories.CategorySet;
+import se.iths.java21.patrik.lab2.menu.admin.products.Product;
+import se.iths.java21.patrik.lab2.menu.admin.products.ProductList;
 import se.iths.java21.patrik.lab2.menu.trading.*;
 
 import java.io.IOException;
@@ -16,6 +20,7 @@ public class CsvWriter {
         Path receiptPath = Path.of(wrap(() -> ClassLoader.getSystemResource("kvitto.csv").toURI()));
         List<String> strings = new ArrayList<>();
         cart.getCart().entrySet().forEach(productIntegerEntry -> convertToStringsAndIntegers(productIntegerEntry, strings));
+        strings.add(String.format("Rabatter: %.2f kr", cart.getTotalDiscount()));
         strings.add(String.format("Summa: %.2f kr", cart.getTotalPrice()));
 
         try {
@@ -30,8 +35,8 @@ public class CsvWriter {
         strings.add(stringBuilder
                 .append(productIntegerEntry.getKey().getName())
                 .append(": ")
-                .append(productIntegerEntry.getKey().getPrice())
-                .append(" kr/st, Antal: ")
+                .append(String.format("%.2f kr/st,", productIntegerEntry.getKey().getPrice()))
+                .append(" Antal: ")
                 .append(productIntegerEntry.getValue())
                 .append(" stycken")
                 .toString());

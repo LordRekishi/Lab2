@@ -1,5 +1,6 @@
-package se.iths.java21.patrik.lab2.menu.trading;
+package se.iths.java21.patrik.lab2.menu.admin.products;
 
+import se.iths.java21.patrik.lab2.menu.admin.categories.Category;
 import se.iths.java21.patrik.lab2.menu.tools.InputHandler;
 
 import java.util.*;

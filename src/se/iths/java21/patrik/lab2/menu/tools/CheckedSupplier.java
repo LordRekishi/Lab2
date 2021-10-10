@@ -9,6 +9,5 @@ public interface CheckedSupplier<R> {
         } catch (Exception e) {
             throw new RuntimeException();
         }
-
     }
 }

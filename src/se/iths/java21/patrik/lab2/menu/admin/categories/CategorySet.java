@@ -1,4 +1,4 @@
-package se.iths.java21.patrik.lab2.menu.trading;
+package se.iths.java21.patrik.lab2.menu.admin.categories;
 
 import java.util.HashSet;
 import java.util.Set;

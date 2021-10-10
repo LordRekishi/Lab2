@@ -1,9 +1,9 @@
 package se.iths.java21.patrik.lab2.menu.tools;
 
-import se.iths.java21.patrik.lab2.menu.trading.Category;
-import se.iths.java21.patrik.lab2.menu.trading.CategorySet;
-import se.iths.java21.patrik.lab2.menu.trading.Product;
-import se.iths.java21.patrik.lab2.menu.trading.ProductList;
+import se.iths.java21.patrik.lab2.menu.admin.categories.Category;
+import se.iths.java21.patrik.lab2.menu.admin.categories.CategorySet;
+import se.iths.java21.patrik.lab2.menu.admin.products.Product;
+import se.iths.java21.patrik.lab2.menu.admin.products.ProductList;
 
 import java.io.IOException;
 import java.nio.file.Files;

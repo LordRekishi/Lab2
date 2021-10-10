@@ -34,7 +34,17 @@ public class InputHandler {
     }
 
     public static String getStringInput() {
-        return scanner.nextLine();
+        String input;
+
+        do {
+            input = scanner.nextLine();
+            if (input == null) {
+                System.out.println("""
+                        Försök igen!
+                        ↓ Skriv här ↓""");
+            }
+        } while (input == null);
+        return input;
     }
 
     public static boolean isNumericInteger(String searchInput) {

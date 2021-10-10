@@ -1,8 +1,8 @@
 package se.iths.java21.patrik.lab2;
 
 import se.iths.java21.patrik.lab2.menu.tools.CsvReader;
-import se.iths.java21.patrik.lab2.menu.trading.CategorySet;
-import se.iths.java21.patrik.lab2.menu.trading.ProductList;
+import se.iths.java21.patrik.lab2.menu.admin.categories.CategorySet;
+import se.iths.java21.patrik.lab2.menu.admin.products.ProductList;
 import se.iths.java21.patrik.lab2.menu.trading.ShoppingCart;
 import se.iths.java21.patrik.lab2.menu.MainMenu;
 

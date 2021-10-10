@@ -1,6 +1,10 @@
 package se.iths.java21.patrik.lab2.menu.trading;
 
+import se.iths.java21.patrik.lab2.menu.admin.categories.CategorySet;
+import se.iths.java21.patrik.lab2.menu.admin.products.Product;
+import se.iths.java21.patrik.lab2.menu.admin.products.ProductList;
 import se.iths.java21.patrik.lab2.menu.tools.*;
+import se.iths.java21.patrik.lab2.menu.trading.discounts.Discounts;
 
 public class TradeMenu implements MenuTemplate<Integer> {
     private final Command[] commands = new Command[4];
@@ -216,12 +220,12 @@ public class TradeMenu implements MenuTemplate<Integer> {
                     Discounts.executeDiscounts(cart, productList);
                     CsvWriter.writeReceipt(cart);
                     System.out.println("""
-                                                
-                        TACK FÖR DITT KÖP
+                                                    
+                            TACK FÖR DITT KÖP
 
-                        Du hittar ditt kvitto i följande mapp
-                        Lab2\\out\\production\\Lab2
-                        """);
+                            Du hittar ditt kvitto i följande mapp
+                            Lab2\\out\\production\\Lab2
+                            """);
                     System.out.println("Spara ändringar? (Y/N)");
                     if (InputHandler.getStringInput().equalsIgnoreCase("y")) {
                         CsvWriter.saveCategorySet(categories);

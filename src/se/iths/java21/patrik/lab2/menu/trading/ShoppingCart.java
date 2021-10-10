@@ -1,12 +1,16 @@
 package se.iths.java21.patrik.lab2.menu.trading;
 
+import se.iths.java21.patrik.lab2.menu.admin.categories.Category;
+import se.iths.java21.patrik.lab2.menu.admin.products.Product;
 import se.iths.java21.patrik.lab2.menu.tools.InputHandler;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 public class ShoppingCart {
     private static Map<Product, Integer> cart;
     private double totalPrice;
+    private BigDecimal totalDiscount;
 
     public ShoppingCart() {
         cart = new HashMap<>();
@@ -14,6 +18,14 @@ public class ShoppingCart {
 
     public Map<Product, Integer> getCart() {
         return cart;
+    }
+
+    public BigDecimal getTotalDiscount() {
+        return totalDiscount;
+    }
+
+    public void setTotalDiscount(BigDecimal totalDiscount) {
+        this.totalDiscount = totalDiscount;
     }
 
     public double getTotalPrice() {

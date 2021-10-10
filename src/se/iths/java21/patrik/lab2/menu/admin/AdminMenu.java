@@ -1,8 +1,10 @@
 package se.iths.java21.patrik.lab2.menu.admin;
 
+import se.iths.java21.patrik.lab2.menu.admin.categories.CategorySet;
+import se.iths.java21.patrik.lab2.menu.admin.categories.ChangeCategories;
+import se.iths.java21.patrik.lab2.menu.admin.products.ChangeProducts;
+import se.iths.java21.patrik.lab2.menu.admin.products.ProductList;
 import se.iths.java21.patrik.lab2.menu.tools.*;
-import se.iths.java21.patrik.lab2.menu.trading.CategorySet;
-import se.iths.java21.patrik.lab2.menu.trading.ProductList;
 
 public class AdminMenu implements MenuTemplate<Integer> {
     private final Command[] commands = new Command[4];
